@@ -1,7 +1,7 @@
 def call(Map config) {
     def imageName = config.imageName
     def dockerfilePath = config.dockerfilePath ?: 'docker/Dockerfile'
-    def credentialsId = config.credentialsId ?: 'docker-hub-creds'
+    def credentialsId = config.credentialsId ?: 'docker-hub'
     def tag = config.tag ?: env.BUILD_NUMBER
 
     env.PATH = "/opt/homebrew/bin:${env.PATH}"
