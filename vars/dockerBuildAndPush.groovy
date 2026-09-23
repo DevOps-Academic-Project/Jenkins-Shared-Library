@@ -4,6 +4,8 @@ def call(Map config) {
     def credentialsId = config.credentialsId ?: 'docker-hub-creds'
     def tag = config.tag ?: env.BUILD_NUMBER
 
+    env.PATH = "/opt/homebrew/bin:${env.PATH}"
+
     stage('Build Docker Image') {
         sh "docker build -f ${dockerfilePath} -t ${imageName}:${tag} ."
     }
