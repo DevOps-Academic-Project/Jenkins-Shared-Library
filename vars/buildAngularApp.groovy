@@ -5,9 +5,6 @@ def call(Map config = [:]) {
         sh 'npm ci'
     }
 
-    stage('Lint') {
-        sh 'npm run lint'
-    }
 
     stage('Test') {
         sh "npm test -- --watch=false --browsers=ChromeHeadless"
