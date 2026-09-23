@@ -7,7 +7,7 @@ def call(Map config = [:]) {
 
 
     stage('Test') {
-        sh "npm test -- --watch=false --browsers=ChromeHeadless"
+        sh "npm test -- --watch=false"
     }
 
     stage('Build') {
