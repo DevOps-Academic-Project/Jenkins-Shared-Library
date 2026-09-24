@@ -1,18 +1,3 @@
-@NonCPS
-def getCommitInfo() {
-    def changeLogSets = currentBuild.changeSets
-    if (changeLogSets.size() > 0) {
-        def entries = changeLogSets[0].items
-        if (entries.length > 0) {
-            def authorName = entry.authorName.toString()
-            def msg = entry.msg.toString()
-            def commitId = entry.commitId.take(7).toString()
-            return "<b>${authorName}</b> — \"${msg}\" (${commitId})"
-        }
-    }
-    return "Aucun changement detecte"
-}
-
 def call(Map config = [:]) {
     def status = currentBuild.currentResult
     def statusColor = status == 'SUCCESS' ? '#22c55e' : (status == 'UNSTABLE' ? '#f59e0b' : '#ef4444')
@@ -22,7 +7,9 @@ def call(Map config = [:]) {
     def dockerImage = config.dockerImage ?: ''
     def grafanaUrl = config.grafanaUrl ?: 'http://grafana.local:30618'
 
-    def commitInfo = getCommitInfo()
+    def commitAuthor = env.GIT_COMMIT_AUTHOR ?: 'Inconnu'
+    def commitMsg = env.GIT_COMMIT_MSG ?: 'Aucun message'
+    def commitInfo = "<b>${commitAuthor}</b> — \"${commitMsg}\""
 
     def dockerSection = dockerImage ? """
         <tr><td style="padding:10px 16px;font-weight:600;color:#475569;">Image Docker</td>
