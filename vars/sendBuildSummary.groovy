@@ -4,8 +4,10 @@ def getCommitInfo() {
     if (changeLogSets.size() > 0) {
         def entries = changeLogSets[0].items
         if (entries.length > 0) {
-            def entry = entries[0]
-            return "<b>${entry.author}</b> — \"${entry.msg}\" (${entry.commitId.take(7)})"
+            def authorName = entry.authorName.toString()
+            def msg = entry.msg.toString()
+            def commitId = entry.commitId.take(7).toString()
+            return "<b>${authorName}</b> — \"${msg}\" (${commitId})"
         }
     }
     return "Aucun changement detecte"
